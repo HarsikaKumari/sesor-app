@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger } from "@nestjs/common";
 
 @Injectable()
 export class SensorService {
@@ -13,20 +13,20 @@ export class SensorService {
   }) {
     const { action, indicator, range } = payload;
 
-    if (action === 'start') {
+    if (action === "start") {
       if (this.isSendingData) {
-        return { message: 'Already sending data' };
+        return { message: "Already sending data" };
       }
       this.isSendingData = true;
       this.startSendingData(indicator, range);
       return {
         message: `Started sending ${indicator} data in range ${range.min}-${range.max}`,
       };
-    } else if (action === 'stop') {
+    } else if (action === "stop") {
       this.stopSendingData();
-      return { message: 'Stopped sending data' };
+      return { message: "Stopped sending data" };
     }
-    return { message: 'Invalid action' };
+    return { message: "Invalid action" };
   }
 
   private startSendingData(

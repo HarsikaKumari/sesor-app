@@ -5,16 +5,16 @@ import {
   Headers,
   HttpException,
   HttpStatus,
-} from '@nestjs/common';
-import { SensorService } from './sensor.service';
+} from "@nestjs/common";
+import { SensorService } from "./sensor.service";
 
-@Controller('sensor')
+@Controller("sensor")
 export class SensorController {
   constructor(private readonly sensorService: SensorService) {}
 
-  @Post('mock-data')
+  @Post("mock-data")
   handleMockData(
-    @Headers('x-api-key') apiKey: string,
+    @Headers("x-api-key") apiKey: string,
     @Body()
     body: {
       action: string;
@@ -23,7 +23,7 @@ export class SensorController {
     },
   ) {
     if (apiKey !== process.env.API_KEY) {
-      throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
+      throw new HttpException("Unauthorized", HttpStatus.UNAUTHORIZED);
     }
 
     return this.sensorService.handleMockData(body);

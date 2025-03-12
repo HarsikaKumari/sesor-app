@@ -1,10 +1,10 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
-import { Kafka, Producer } from 'kafkajs';
+import { Injectable, OnModuleInit } from "@nestjs/common";
+import { Kafka, Producer } from "kafkajs";
 
 @Injectable()
 export class ProducerService implements OnModuleInit {
   private readonly kafka = new Kafka({
-    brokers: ['http://192.168.235.125:9092'],
+    brokers: ["http://192.168.235.125:9092"],
   });
 
   private producer: Producer;

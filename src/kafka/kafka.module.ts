@@ -1,6 +1,6 @@
-import { Module, OnApplicationBootstrap } from '@nestjs/common';
-import { ConsumerService } from './kafka.consumer.service';
-import { ProducerService } from './kafka.producer.service';
+import { Module, OnApplicationBootstrap } from "@nestjs/common";
+import { ConsumerService } from "./kafka.consumer.service";
+import { ProducerService } from "./kafka.producer.service";
 
 @Module({
   providers: [ProducerService, ConsumerService],
@@ -11,9 +11,9 @@ export class KafkaModule implements OnApplicationBootstrap {
 
   async onApplicationBootstrap() {
     // Sending a sample message on application start
-    await this.producerService.produce('sensor-data', {
-      key: 'test-key',
-      value: JSON.stringify({ message: 'Hello Kafka!' }),
+    await this.producerService.produce("sensor-data", {
+      key: "test-key",
+      value: JSON.stringify({ message: "Hello Kafka!" }),
     });
   }
 }

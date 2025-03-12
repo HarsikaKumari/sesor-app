@@ -1,9 +1,22 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { SensorModule } from './sensor/sensor.module';
-import { KafkaModule } from './test/kafka.module';
+import { Module } from "@nestjs/common";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { DeviceModule } from "./device/device.module";
+import { SensorData } from "./sensor/sensor.entity";
+import { Device } from "./device/device.entity";
 
 @Module({
-  imports: [ConfigModule.forRoot(), SensorModule, KafkaModule],
+  imports: [
+    TypeOrmModule.forRoot({
+      type: "postgres",
+      host: "localhost",
+      port: Number(5432),
+      username: "postgres",
+      password: "shishir",
+      database: "coal",
+      entities: [Device, SensorData],
+      synchronize: true,
+    }),
+    DeviceModule,
+  ],
 })
-export class AppModule { }
+export class AppModule {}

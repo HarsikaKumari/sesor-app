@@ -1,19 +1,19 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
-import { Kafka, Consumer } from 'kafkajs';
+import { Injectable, OnModuleInit } from "@nestjs/common";
+import { Kafka, Consumer } from "kafkajs";
 
 @Injectable()
 export class ConsumerService implements OnModuleInit {
   private readonly kafka = new Kafka({
-    brokers: ['http://192.168.235.125:9092'],
-  })
+    brokers: ["http://192.168.235.125:9092"],
+  });
 
   private consumer: Consumer;
 
   async onModuleInit() {
-    this.consumer = this.kafka.consumer({ groupId: 'sensor-group' });
+    this.consumer = this.kafka.consumer({ groupId: "sensor-group" });
     await this.consumer.connect();
     await this.consumer.subscribe({
-      topic: 'sensor-data',
+      topic: "sensor-data",
       fromBeginning: true,
     });
 

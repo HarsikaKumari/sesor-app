@@ -2,8 +2,8 @@ import {
   Module,
   OnApplicationBootstrap,
   OnModuleDestroy,
-} from '@nestjs/common';
-import { Kafka, Producer, Consumer } from 'kafkajs';
+} from "@nestjs/common";
+import { Kafka, Producer, Consumer } from "kafkajs";
 
 @Module({})
 export class KafkaModule implements OnApplicationBootstrap, OnModuleDestroy {
@@ -13,23 +13,23 @@ export class KafkaModule implements OnApplicationBootstrap, OnModuleDestroy {
 
   constructor() {
     this.kafka = new Kafka({
-      clientId: 'coal-mining-client',
-      brokers: ['localhost:9092'],
+      clientId: "coal-mining-client",
+      brokers: ["localhost:9092"],
     });
 
     this.producer = this.kafka.producer();
-    this.consumer = this.kafka.consumer({ groupId: 'coal-mining-group' });
+    this.consumer = this.kafka.consumer({ groupId: "coal-mining-group" });
   }
 
   async onApplicationBootstrap() {
     await Promise.all([this.connectProducer(), this.connectConsumer()]);
 
-    this.consumeMessages('co2', (message) => console.log('Received:', message));
+    this.consumeMessages("co2", (message) => console.log("Received:", message));
 
     setInterval(async () => {
       const message = { timestamp: new Date().toISOString(), value: 99 };
-      await this.sendMessage('sensor', message);
-      console.log('Message sent:', message);
+      await this.sendMessage("sensor", message);
+      console.log("Message sent:", message);
     }, 1000);
   }
 
@@ -51,7 +51,7 @@ export class KafkaModule implements OnApplicationBootstrap, OnModuleDestroy {
         messages: [{ value: JSON.stringify(message) }],
       });
     } catch (error) {
-      console.error('Error sending message:', error);
+      console.error("Error sending message:", error);
     }
   }
 
@@ -68,7 +68,7 @@ export class KafkaModule implements OnApplicationBootstrap, OnModuleDestroy {
         },
       });
     } catch (error) {
-      console.error('Error consuming messages:', error);
+      console.error("Error consuming messages:", error);
     }
   }
 
@@ -81,12 +81,12 @@ export class KafkaModule implements OnApplicationBootstrap, OnModuleDestroy {
       this.producer
         ?.disconnect()
         .catch((error) =>
-          console.error('Producer disconnection error:', error),
+          console.error("Producer disconnection error:", error),
         ),
       this.consumer
         ?.disconnect()
         .catch((error) =>
-          console.error('Consumer disconnection error:', error),
+          console.error("Consumer disconnection error:", error),
         ),
     ]);
   }
