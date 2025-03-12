@@ -3,7 +3,7 @@ import { SensorData } from "../sensor/sensor.entity";
 
 @Entity("devices")
 export class Device {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column()
