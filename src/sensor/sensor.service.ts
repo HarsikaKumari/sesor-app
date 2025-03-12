@@ -1,4 +1,5 @@
 import { Injectable, Logger } from "@nestjs/common";
+import { CreateSensorDataDto } from "src/device/dto/create-sensor-data.dto";
 
 @Injectable()
 export class SensorService {
@@ -6,27 +7,23 @@ export class SensorService {
   private interval: NodeJS.Timeout | null = null;
   private logger = new Logger(SensorService.name);
 
-  handleMockData(payload: {
-    action: string;
-    indicator: string;
-    range: { min: number; max: number };
-  }) {
-    const { action, indicator, range } = payload;
+  handleMockData(payload: CreateSensorDataDto) {
+    console.log(payload);
 
-    if (action === "start") {
-      if (this.isSendingData) {
-        return { message: "Already sending data" };
-      }
-      this.isSendingData = true;
-      this.startSendingData(indicator, range);
-      return {
-        message: `Started sending ${indicator} data in range ${range.min}-${range.max}`,
-      };
-    } else if (action === "stop") {
-      this.stopSendingData();
-      return { message: "Stopped sending data" };
-    }
-    return { message: "Invalid action" };
+    // if (action === "start") {
+    //   if (this.isSendingData) {
+    //     return { message: "Already sending data" };
+    //   }
+    //   this.isSendingData = true;
+    //   this.startSendingData(indicator, range);
+    //   return {
+    //     message: `Started sending ${indicator} data in range ${range.min}-${range.max}`,
+    //   };
+    // } else if (action === "stop") {
+    //   this.stopSendingData();
+    //   return { message: "Stopped sending data" };
+    // }
+    // return { message: "Invalid action" };
   }
 
   private startSendingData(

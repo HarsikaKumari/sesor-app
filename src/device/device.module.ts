@@ -8,5 +8,6 @@ import { DeviceController } from "./device.controller";
   imports: [TypeOrmModule.forFeature([Device])],
   controllers: [DeviceController],
   providers: [DeviceService],
+  exports: [DeviceService],
 })
 export class DeviceModule {}

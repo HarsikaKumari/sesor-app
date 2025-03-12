@@ -3,6 +3,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { DeviceModule } from "./device/device.module";
 import { SensorData } from "./sensor/sensor.entity";
 import { Device } from "./device/device.entity";
+import { SensorModule } from "./sensor/sensor.module";
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { Device } from "./device/device.entity";
       synchronize: true,
     }),
     DeviceModule,
+    SensorModule,
   ],
 })
 export class AppModule {}
